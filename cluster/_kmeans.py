@@ -23,7 +23,7 @@ class KMeans:
 
     """
 
-    def __init__(self, n_clusters=8, init='random', n_init=10,
+    def __init__(self, n_clusters=8, init='random', n_init=500,
                  max_iter=500, tol=1e-8, distances='E_distance',
                  n_thread=10, algorithm='classic'):
 
@@ -147,13 +147,28 @@ class KMeans:
         else:
             logging.warning('---Please input the parameter with numpy.ndarray data type---')
 
-    # def predict(self, y):
-    #     if type(y) is np.ndarray:
-    #         label_list = _kmeans_c.predict(self.centre_point, y)
-    #         return label_list
-    #     else:
-    #         logging.warning('---Please input the parameter with numpy.ndarray data type---')
-    #     pass
+    def predict(self, y):
+        if type(y) is np.ndarray:
+            label_l = []
+            for i in range(len(y)):
+                tmp_d = 0
+                tmp_l = -1
+                for k in range(len(self.centre_point)):
+                    sum_y = 0
+                    for j in range(len(y[i])):
+                        sum_y = sum_y + np.square(y[i][j] - self.centre_point[k][j])
+                    s_sum_y = np.sqrt(sum_y)
+                    if tmp_l == -1:
+                        tmp_l = k
+                        tmp_d = s_sum_y
+                    elif tmp_d > s_sum_y:
+                        tmp_l = k
+                        tmp_d = s_sum_y
+                label_l.append(tmp_l)
+            return label_l
+        else:
+            logging.warning('---Please input the parameter with numpy.ndarray data type---')
+        pass
 
     def score(self):
         return self.score

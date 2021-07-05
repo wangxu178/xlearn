@@ -18,14 +18,16 @@ import numpy as np
 # from matplotlib import pyplot
 
 # data, target = make_blobs(n_samples=100, n_features=2, centers=3)
-data, target = make_blobs(n_samples=10000, n_features=2, centers=[[-10, -1, -1, -1], [0, 0, 0, 0], [10, 1, 1, 1], [20, 2, 2, 2], [30, 3, 3, 3], [40, 4, 4, 4], [50, 5, 5, 5]],
+data, target = make_blobs(n_samples=100, n_features=2, centers=[[-10, -1, -1, -1], [0, 0, 0, 0], [10, 1, 1, 1], [20, 2, 2, 2], [30, 3, 3, 3], [40, 4, 4, 4], [50, 5, 5, 5]],
                   cluster_std=[0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01], random_state=9)
 # data = np.array([[1.0, 0], [0.98, 0], [0.99, 0], [10.0, 0], [10.1, 0], [9.9, 0]])
-k = cluster.KMeans(n_init=20, n_clusters=7, init='random', max_iter=500, tol=1e-8, distances='E_distance', algorithm='classic').fit(data)
+k = cluster.KMeans(n_init=500, n_clusters=7, init='random', max_iter=500, tol=1e-8, distances='E_distance', algorithm='classic').fit(data)
 # K = KMeans(n_clusters=2, random_state=0, init='random', max_iter=200, tol=1e-5).fit(data)
+t = np.array([[-10.1, -1, -1, -1], [0.1, 0, 0, 0], [10.1, 1, 1, 1], [20.1, 2, 2, 2], [30.1, 3, 3, 3], [40.1, 4, 4, 4], [50.1, 5, 5, 5]])
 print(k.centre_point)
 print(k.label_l)
 print(k.score)
+print(k.predict(t))
 print('----------------------------------------------------------')
 # print(K.cluster_centers_)
 # print(K.labels_)
